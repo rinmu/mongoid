@@ -3365,6 +3365,20 @@ describe Mongoid::Criteria do
           expect(selector['ratable_id']).to eq(movie.id)
         end
       end
+
+      context 'when querying on a polymorphic foreign key string' do
+        let(:object_id) do
+          BSON::ObjectId.new
+        end
+
+        let(:selector) do
+          Rating.where(ratable_id: object_id.to_s).selector
+        end
+
+        it 'properly converts the string to an ObjectId' do
+          expect(selector['ratable_id']).to be_a(BSON::ObjectId)
+        end
+      end
     end
   end
 

@@ -46,9 +46,9 @@ module Mongoid
       end
 
       private
-      
+
       def convert_polymorphic(object)
-        object.respond_to?(:id) ? object.id : object
+        object.respond_to?(:id) ? object.id : object.__evolve_object_id__
       end
     end
   end
